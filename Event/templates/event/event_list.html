@@ -1,0 +1,16 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Event List{% endblock title %}
+
+{% block content %}
+    <h1>Upcoming Events</h1>
+    <ul>
+        {% for event in events %}
+            <li>
+                <a href="{% url 'event_detail' event.id %}">{{ event.name }}</a> <!-- Link to event detail -->
+            </li>
+        {% empty %}
+            <p>No events available at the moment.</p>
+        {% endfor %}
+    </ul>
+{% endblock content %}

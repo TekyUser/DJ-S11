@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href={% url "home" %}>Home</a>
+            <a href={% url "event_list" %}>Events</a>
+            <a href=#>Calendar</a>
+            
+            {% if user.is_authenticated %}
+                <span class="nav-link">Hello, {{ user.username }}</span>
+                <a href="{% url 'create_event' %}" class="nav-link btn btn-primary">Add Event</a>
+                <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="nav-link">Login</a>
+                <a href="{% url 'signup' %}" class="nav-link">Sign up</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        
+        {% endblock %}
+    </main>
+    
+    <footer>
+        <hr>
+        <h1>This is footer</h1>
+        <h2>Thanks for visiting the website</h2>
+        <p><strong>Contact me</strong></p>
+        <p>Address: [Your Address]</p>
+        <p>Name: [Your Name]</p>
+        <p>@Copyright 2025</p>
+    </footer>
+</body>
+</html>

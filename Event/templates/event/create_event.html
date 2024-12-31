@@ -1,0 +1,17 @@
+<form method="post">
+    {% csrf_token %}
+    {% if form.errors %}
+        <div class="form-errors">
+            {% for field in form %}
+                {% if field.errors %}
+                    <strong> {{ field.errors }}</strong>
+                {% endif %}
+            {% endfor %}
+            {% if form.non_field_errors %}
+                <p>{{ form.non_field_errors }}</p>
+            {% endif %}
+        </div>
+    {% endif %}
+    {{ form.as_p }}
+    <button type="submit">Create Event</button>
+</form>
