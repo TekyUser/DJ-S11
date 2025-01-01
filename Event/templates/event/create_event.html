@@ -1,3 +1,7 @@
+{% extends "pages/base.html" %}
+{% block title %}Create Event{% endblock title %}
+{% block content %}
+<h1>Lets create an event</h1>
 <form method="post">
     {% csrf_token %}
     {% if form.errors %}
@@ -15,3 +19,4 @@
     {{ form.as_p }}
     <button type="submit">Create Event</button>
 </form>
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends "pages/base.html" %}
+{% block title %}Account Detail{% endblock title %}
+
+{% block content %}
+<br>
+<h1>Account Details</h1>
+
+<p><strong>Username:</strong> {{ user.username }}</p>
+<p><strong>Email:</strong> {{ user.email }}</p>
+
+{% if user.profile %}
+    <p><strong>Phone Number:</strong> {{ user.profile.phone_number }}</p>
+    <p><strong>Address:</strong> {{ user.profile.address }}</p>
+{% endif %}
+
+<hr>
+
+<h2>Change Password</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Change password</button>
+</form>
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<hr>
+
+<h2>Danger Zone 💀💀💀</h2>
+<p>delete Your account: </p>
+<form action="{% url 'delete_account' %}" method="POST">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Delete Account</button>
+</form>
+
+{% endblock content %}

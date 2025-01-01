@@ -8,5 +8,5 @@
     <p>Date: {{ event.date }}</p>
     <p>Location: {{ event.location }}</p>
     <p>Time: {{ event.time }}</p>
-    <a href="{% url 'event_list' %}">Back to event list</a>
+    {% comment %} <a href="{% url 'event_list' %}">Back to event list</a> {% endcomment %}
 {% endblock content %}

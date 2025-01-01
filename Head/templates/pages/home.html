@@ -8,7 +8,7 @@
 <ul>
     {% for event in upcoming_events %}
     <li>
-        <strong>{{ event.name }}</strong> - {{ event.date|date:"F d, Y H:i" }}<br>
+        <strong><a href="{% url 'event_detail' event.id %}">{{ event.name }}</a></strong> - {{ event.date|date:"F d, Y H:i" }}<br>
         {{ event.description|truncatewords:10 }} <!-- Hiển thị mô tả ngắn gọn -->
     </li>
     {% empty %}
@@ -20,7 +20,7 @@
 <ul>
     {% for event in interesting_events %}
     <li>
-        <strong>{{ event.name }}</strong> - {{ event.date|date:"F d, Y H:i" }}<br>
+        <strong><a href="{% url 'event_detail' event.id %}">{{ event.name }}</a></strong> - {{ event.date|date:"F d, Y H:i" }}<br>
         {{ event.description|truncatewords:10 }}
     </li>
     {% empty %}

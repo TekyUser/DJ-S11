@@ -2,6 +2,18 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import SignUpForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
+
+def delete_account(request):
+    user = request.user
+    user.delete()  # Delete the user account
+    logout(request)  # Log the user out
+    messages.success(request, 'Your account has been deleted.')
+    return redirect('home')  # Redirect to home page after deletion
 
 def signup_view(request):
     if request.method == 'POST':
@@ -28,3 +40,24 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+
+@login_required
+def account_detail_and_change_password(request):
+    # Get the currently logged-in user
+    user = request.user
+    # Handle password change form
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)  # Important to keep the user logged in after password change
+            messages.success(request, 'Your password has been successfully updated.')
+            return redirect('account_detail')  # Redirect to the account detail page after successful password change
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(user=user)
+
+    # Pass the form to the template
+    return render(request, 'account/account_detail.html', {'user': user, 'form': form})
