@@ -8,5 +8,13 @@
     <p>Date: {{ event.date }}</p>
     <p>Location: {{ event.location }}</p>
     <p>Time: {{ event.time }}</p>
-    {% comment %} <a href="{% url 'event_list' %}">Back to event list</a> {% endcomment %}
+
+    {% if user.is_authenticated %}
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Join</button>
+        </form>
+    {% else %}
+        <p>You must <a href="{% url 'login' %}">log in</a> to join the event.</p>
+    {% endif %}
 {% endblock content %}
