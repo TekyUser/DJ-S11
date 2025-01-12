@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import AuthenticationForm
-from .forms import SignUpForm
+from django.contrib.auth import login, authenticate, logout,update_session_auth_hash
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
+from .forms import SignUpForm
+from django.contrib.auth.models import User
 
 def delete_account(request):
     user = request.user
@@ -58,6 +56,5 @@ def account_detail_and_change_password(request):
             messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(user=user)
-
     # Pass the form to the template
     return render(request, 'account/account_detail.html', {'user': user, 'form': form})

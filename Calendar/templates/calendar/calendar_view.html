@@ -1,17 +1,14 @@
 {% extends "pages/base.html" %}
-
 {% block title %}Your Calendar{% endblock title %}
-
 {% block content %}
     <h1>Your Joined Events</h1>
-    
     {% if message %}
         <p>{{ message }}</p>
     {% else %}
         <ul>
             {% for user_event in page_obj %}
                 <li>
-                    <strong>{{ user_event.event.name }}</strong><br>
+                    <strong><a href="{% url 'event_detail' user_event.event.id %}">{{ user_event.event.name }}</a></strong><br>
                     Date: {{ user_event.event.date }}<br>
                     Location: {{ user_event.event.location }}<br>
                 </li>

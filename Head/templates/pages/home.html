@@ -1,6 +1,5 @@
 {% extends "pages/base.html" %}
 {% block title %}Events | Home Page{% endblock title %}
-
 {% block content %}
 <h1>Welcome to the Event Management Platform</h1>
 
@@ -9,23 +8,25 @@
     {% for event in upcoming_events %}
     <li>
         <strong><a href="{% url 'event_detail' event.id %}">{{ event.name }}</a></strong> - {{ event.date|date:"F d, Y H:i" }}<br>
-        {{ event.description|truncatewords:10 }} <!-- Hiển thị mô tả ngắn gọn -->
+        {{ event.description|truncatewords:10|safe }} <!-- Hiển thị mô tả ngắn gọn -->
     </li>
     {% empty %}
     <li>No upcoming events.</li>
     {% endfor %}
 </ul>
 
-<h2>Some Interesting Events You Definitely Want to Join</h2>
+{% comment %} INTERESTING EVENTS {% endcomment %}
+{% comment %} <h2>Some Interesting Events You Definitely Want to Join</h2>
 <ul>
     {% for event in interesting_events %}
     <li>
         <strong><a href="{% url 'event_detail' event.id %}">{{ event.name }}</a></strong> - {{ event.date|date:"F d, Y H:i" }}<br>
-        {{ event.description|truncatewords:10 }}
+        {{ event.description|truncatewords:10|safe }}
     </li>
     {% empty %}
     <li>No interesting events found.</li>
     {% endfor %}
-</ul>
+</ul> {% endcomment %}
+
 
 {% endblock content %}
