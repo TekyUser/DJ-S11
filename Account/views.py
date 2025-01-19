@@ -10,7 +10,6 @@ def delete_account(request):
     user = request.user
     user.delete()  # Delete the user account
     logout(request)  # Log the user out
-    messages.success(request, 'Your account has been deleted.')
     return redirect('home')  # Redirect to home page after deletion
 
 def signup_view(request):
@@ -51,7 +50,7 @@ def account_detail_and_change_password(request):
             form.save()
             update_session_auth_hash(request, form.user)  # Important to keep the user logged in after password change
             messages.success(request, 'Your password has been successfully updated.')
-            return redirect('account_detail')  # Redirect to the account detail page after successful password change
+            return redirect('detail')  # Redirect to the account detail page after successful password change
         else:
             messages.error(request, 'Please correct the error below.')
     else:

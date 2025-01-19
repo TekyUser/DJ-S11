@@ -1,7 +1,7 @@
 {% extends "pages/base.html" %}
 {% block title %}Account Detail{% endblock title %}
 {% block content %}
-<br>
+
 <h1>Account Details</h1>
 <p><strong>Username:</strong> {{ user.username }}</p>
 {% if user.email %}
@@ -23,14 +23,15 @@
     {{ form.as_p }}
     <button type="submit">Change password</button>
 </form>
-
-{% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
+  
+  
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 
 <hr>
 
@@ -40,5 +41,6 @@
   {% csrf_token %}
   <button type="submit" class="btn btn-danger">Delete Account</button>
 </form>
+
 
 {% endblock content %}
